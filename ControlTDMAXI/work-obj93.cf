@@ -1,0 +1,7 @@
+v 4
+file . "control_TDMA_AXI.vhd" "472140385cfbf62f19cb19cc82ac175d70c58672" "20200423224053.521":
+  entity control_tdma_axi at 1( 0) + 0 on 73;
+  architecture behav of control_tdma_axi at 13( 213) + 0 on 74;
+file . "TB_control_TDMA_AXI.vhd" "d454b6af084a2f8df106659ab99b9e9623d8c254" "20200423224053.614":
+  entity tb_control_tdma_axi at 1( 0) + 0 on 75;
+  architecture bhv of tb_control_tdma_axi at 8( 131) + 0 on 76;
