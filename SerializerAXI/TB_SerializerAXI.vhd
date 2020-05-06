@@ -11,7 +11,8 @@ generic(
         numchn: integer := 16;
         --from AXI stream interface
         NUMBITSin : natural := 12; --ADC result wide = 12 
-        NUMBITSout : natural := 32 --added line 15/04/20 salida AXI  
+        NUMBITSout : natural := 32; --added line 15/04/20 salida AXI 
+        numintime  : natural := 12  --to configure the integration time
     );
 end TB_SerializerAXI;
 ----------------------------------------------------------------------------------
@@ -37,6 +38,7 @@ COMPONENT SerializerAXI is
         din13: in std_logic_vector(numbits-1 downto 0);
         din14: in std_logic_vector(numbits-1 downto 0);
         din15: in std_logic_vector(numbits-1 downto 0);
+        intime: in std_logic_vector(numintime-1 downto 0); --to modify the integration time
         --AXI Interface+++++++++++++++++++++++++++++
         -- axi stream ports
         m_axis_tvalid : out std_logic;
@@ -64,6 +66,7 @@ END COMPONENT;
        signal din13: std_logic_vector(numbits-1 downto 0) := (others => '0');
        signal din14: std_logic_vector(numbits-1 downto 0) := (others => '0');
        signal din15: std_logic_vector(numbits-1 downto 0) := (others => '0');
+       signal intime: std_logic_vector(numintime-1 downto 0) := (others => '0');
         -- axi stream ports
        signal m_axis_tvalid: std_logic :='0';
        signal m_axis_tdata : std_logic_vector(NUMBITSout-1 downto 0) := (others => '0');
@@ -95,6 +98,7 @@ begin
       din13  =>  din13,
       din14  =>  din14,
       din15  =>  din15,
+      intime => intime,
     m_axis_tvalid => m_axis_tvalid,
     m_axis_tdata  => m_axis_tdata, 
     m_axis_tstrb  => m_axis_tstrb, 
@@ -128,7 +132,8 @@ begin
         din12 <= conv_std_logic_vector(13,12);
         din13 <= conv_std_logic_vector(14,12);
         din14 <= conv_std_logic_vector(15,12);
-        din15 <= conv_std_logic_vector(16,12);        
+        din15 <= conv_std_logic_vector(16,12); 
+        intime <= conv_std_logic_vector(64,12); --tested 32: ok
         wait for 350 ns;
     end process;
     
